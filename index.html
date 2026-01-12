@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="专业网球信息平台 - 提供ATP/WTA排名、赛程赛果、球员对战数据、装备评测等全方位网球资讯">
+    <meta name="keywords" content="网球,ATP,WTA,排名,赛程,H2H,装备,球拍,评分">
+    <title>Tennis Hub - 专业网球信息平台</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🎾</span>
+                <h1>Tennis Hub</h1>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link active" data-page="home">主页</a></li>
+                <li><a href="#rankings" class="nav-link" data-page="rankings">排名</a></li>
+                <li><a href="#schedule" class="nav-link" data-page="schedule">赛程</a></li>
+                <li><a href="#news" class="nav-link" data-page="news">新闻</a></li>
+                <li><a href="#h2h" class="nav-link" data-page="h2h">H2H</a></li>
+                <li><a href="#equipment" class="nav-link" data-page="equipment">装备库</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <main id="main-content" class="main-content">
+        <!-- 动态内容将在这里加载 -->
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Tennis Hub. 专业网球信息平台</p>
+            <p class="footer-note">数据仅供演示 - 生产环境需集成真实API</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
