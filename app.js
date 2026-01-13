@@ -3,12 +3,13 @@
 // ==========================================
 
 // ==========================================
-// API 配置 - 使用 Cloudflare Worker 代理
+// API 配置
 // ==========================================
+// 注：API-Tennis 免费试用已过期，当前使用手动更新的静态数据
+// 如需实时数据，请订阅 API-Tennis ($40/月) 或其他数据源
 const API_CONFIG = {
-    // Cloudflare Worker 代理地址
     workerUrl: 'https://tennis-api.muia93.workers.dev',
-    enabled: true
+    enabled: true  // 禁用 API，使用静态数据
 };
 
 // 国家代码转国旗 emoji
