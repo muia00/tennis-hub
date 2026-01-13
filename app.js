@@ -3,13 +3,12 @@
 // ==========================================
 
 // ==========================================
-// API 配置
+// API 配置 - 使用 Cloudflare Worker 代理
 // ==========================================
-// 注：API-Tennis 免费试用已过期，当前使用手动更新的静态数据
-// 如需实时数据，请订阅 API-Tennis ($40/月) 或其他数据源
+// 数据来源: Ultimate Tennis Statistics (免费实时 ATP 排名)
 const API_CONFIG = {
     workerUrl: 'https://tennis-api.muia93.workers.dev',
-    enabled: true  // 禁用 API，使用静态数据
+    enabled: true
 };
 
 // 国家代码转国旗 emoji
