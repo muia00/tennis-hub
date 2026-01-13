@@ -3,12 +3,11 @@
 // ==========================================
 
 // ==========================================
-// API-Tennis 配置 (免费 API)
+// API 配置 - 使用 Cloudflare Worker 代理
 // ==========================================
-// 获取免费 API Key: https://api-tennis.com (100次/天免费)
 const API_CONFIG = {
-    baseUrl: 'https://api-tennis.com/tennis/',
-    apiKey: '9c2aa11df83fe92ab3e83c52dff426de12521dff459deddea89d60a8afa68c9f',
+    // Cloudflare Worker 代理地址
+    workerUrl: 'https://tennis-api.muia93.workers.dev',
     enabled: true
 };
 
@@ -23,22 +22,17 @@ const COUNTRY_FLAGS = {
     'Bulgaria': '🇧🇬', 'United Kingdom': '🇬🇧', 'Netherlands': '🇳🇱', 'Brazil': '🇧🇷'
 };
 
-// 构建API URL
-function buildApiUrl(params) {
-    return `${API_CONFIG.baseUrl}?${params}&APIkey=${API_CONFIG.apiKey}`;
-}
-
-// API 数据获取模块
+// API 数据获取模块 - 使用 Worker 代理
 const TennisAPI = {
     // 获取 ATP 排名
     async getATPRankings() {
         if (!API_CONFIG.enabled) return null;
         try {
-            const url = buildApiUrl('method=get_standings&event_type=ATP');
-            console.log('Fetching ATP rankings from API...');
+            const url = `${API_CONFIG.workerUrl}/rankings/atp`;
+            console.log('Fetching ATP rankings from Worker...');
             const response = await fetch(url);
             const data = await response.json();
-            console.log('API Response:', data);
+            console.log('Worker Response:', data);
             if (data.result) {
                 return data.result.slice(0, 20).map((player, idx) => ({
                     rank: parseInt(player.place) || (idx + 1),
@@ -59,11 +53,11 @@ const TennisAPI = {
     async getWTARankings() {
         if (!API_CONFIG.enabled) return null;
         try {
-            const url = buildApiUrl('method=get_standings&event_type=WTA');
-            console.log('Fetching WTA rankings from API...');
+            const url = `${API_CONFIG.workerUrl}/rankings/wta`;
+            console.log('Fetching WTA rankings from Worker...');
             const response = await fetch(url);
             const data = await response.json();
-            console.log('WTA API Response:', data);
+            console.log('WTA Worker Response:', data);
             if (data.result) {
                 return data.result.slice(0, 20).map((player, idx) => ({
                     rank: parseInt(player.place) || (idx + 1),
@@ -84,12 +78,11 @@ const TennisAPI = {
     async getLiveMatches() {
         if (!API_CONFIG.enabled) return null;
         try {
-            const today = new Date().toISOString().split('T')[0];
-            const url = buildApiUrl(`method=get_events&date_start=${today}&date_stop=${today}`);
-            console.log('Fetching matches from API...');
+            const url = `${API_CONFIG.workerUrl}/matches`;
+            console.log('Fetching matches from Worker...');
             const response = await fetch(url);
             const data = await response.json();
-            console.log('Matches API Response:', data);
+            console.log('Matches Worker Response:', data);
             if (data.result && data.result.length > 0) {
                 return data.result.slice(0, 10).map(match => ({
                     id: match.event_key,
@@ -119,7 +112,8 @@ const TennisAPI = {
     async getH2H(player1Name, player2Name) {
         if (!API_CONFIG.enabled) return null;
         try {
-            const url = `${API_CONFIG.baseUrl}?method=get_H2H&first_player=${encodeURIComponent(player1Name)}&second_player=${encodeURIComponent(player2Name)}&APIkey=${API_CONFIG.apiKey}`;
+            const url = `${API_CONFIG.workerUrl}/h2h?player1=${encodeURIComponent(player1Name)}&player2=${encodeURIComponent(player2Name)}`;
+            console.log('Fetching H2H from Worker...');
             const response = await fetch(url);
             const data = await response.json();
             if (data.result && data.result.H2H) {
