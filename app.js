@@ -33,14 +33,15 @@ const TennisAPI = {
             const response = await fetch(url);
             const data = await response.json();
             console.log('Worker Response:', data);
-            if (data.result) {
-                return data.result.slice(0, 20).map((player, idx) => ({
-                    rank: parseInt(player.place) || (idx + 1),
-                    name: player.team_name || player.player || 'Unknown',
-                    country: player.team_country || player.player_country || 'Unknown',
-                    flag: COUNTRY_FLAGS[player.team_country] || COUNTRY_FLAGS[player.player_country] || '🏳️',
-                    points: parseInt(player.points) || 0,
-                    change: 0
+            if (data.result && data.success) {
+                // Worker 返回的格式：{rank, name, country, flag, points, change}
+                return data.result.slice(0, 20).map(player => ({
+                    rank: player.rank,
+                    name: player.name || 'Unknown',
+                    country: player.country || 'Unknown',
+                    flag: player.flag || '🏳️',
+                    points: player.points || 0,
+                    change: player.change || 0
                 }));
             }
         } catch (error) {
@@ -58,14 +59,15 @@ const TennisAPI = {
             const response = await fetch(url);
             const data = await response.json();
             console.log('WTA Worker Response:', data);
-            if (data.result) {
-                return data.result.slice(0, 20).map((player, idx) => ({
-                    rank: parseInt(player.place) || (idx + 1),
-                    name: player.team_name || player.player || 'Unknown',
-                    country: player.team_country || player.player_country || 'Unknown',
-                    flag: COUNTRY_FLAGS[player.team_country] || COUNTRY_FLAGS[player.player_country] || '🏳️',
-                    points: parseInt(player.points) || 0,
-                    change: 0
+            if (data.result && data.success) {
+                // Worker 返回的格式：{rank, name, country, flag, points, change}
+                return data.result.slice(0, 20).map(player => ({
+                    rank: player.rank,
+                    name: player.name || 'Unknown',
+                    country: player.country || 'Unknown',
+                    flag: player.flag || '🏳️',
+                    points: player.points || 0,
+                    change: player.change || 0
                 }));
             }
         } catch (error) {
